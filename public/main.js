@@ -98,12 +98,18 @@ getJSON.onclick = () => {
 
 // ----------------------------------------------------
 // 点击加载分页
-let n = 1;
+let countNumber = 1;
 getPage.onclick = () => {
+  if (countNumber >= 3) {
+    alert(`只有3页`);
+    return;
+  }
   console.log(`这里有成功进行吗？`);
+
   const request = new XMLHttpRequest();
   // 自动增加page页
-  request.open("get", `/page${n + 1}`);
+  console.log(countNumber);
+  request.open("get", `/page${countNumber + 1}`);
   request.onreadystatechange = () => {
     if (request.readyState === 4 && request.status === 200) {
       // 得到对应page的json，然后将其转化为数组
@@ -115,8 +121,11 @@ getPage.onclick = () => {
         xxx.appendChild(li);
       });
     }
-    n += 1;
   };
+
+  // 注意：这个是放在onreadystatechange外面的，不然countNumber数字会额外增加
+  countNumber = countNumber + 1;
+  console.log(countNumber);
   // 别忘记发送请求
   request.send();
 };
