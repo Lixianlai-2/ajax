@@ -81,8 +81,9 @@ getJSON.onclick = () => {
   request.onreadystatechange = () => {
     if (request.readyState === 4 && request.status === 200) {
       console.log(request.response);
-      const Object = JSON.parse(request.response);
-      console.log(Object);
+      const object = JSON.parse(request.response);
+      console.log(object);
+      myName.textContent = object.name;
     }
   };
   request.send();
