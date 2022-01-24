@@ -23,12 +23,7 @@ var server = http.createServer(function (request, response) {
 
   console.log("有个傻子发请求过来啦！路径（带查询参数）为：" + pathWithQuery);
 
-  if (path === "/") {
-    response.statusCode = 200;
-    response.setHeader("Content-Type", "text/html;charset=utf-8");
-    response.write(`请您输入路径`);
-    response.end();
-  } else if (path === "/main.js") {
+  if (path === "/main.js") {
     response.statusCode = 200;
     response.setHeader("Content-Type", "text/javascript;charset=utf-8");
     response.write(fs.readFileSync("public/main.js"));
@@ -41,7 +36,17 @@ var server = http.createServer(function (request, response) {
   } else if (path === "/index.html") {
     response.statusCode = 200;
     response.setHeader("Content-Type", "text/html;charset=utf-8");
-    response.write(fs.readFileSync("public/index.html"));
+    // 读取到index.html的内容，并将其从Object转化为string
+    let string = fs.readFileSync("public/index.html").toString();
+    // 读取到page1的内容，并将其从Object转化为string
+    const page1 = fs.readFileSync("db/page1.json").toString();
+    // 把page1的内容从字符串重新变为数组，格式为[{id:1}]
+    const arr = JSON.parse(page1);
+    // 遍历数组，每个item是对象，得到对象id属性的value，然后用join将它们重新变为字符串
+    const result = arr.map((item) => `<li>${item.id}</li>`).join("");
+    // 把上面的result，也就是一串li，放入到ul中，然后替换原来页面中的page1
+    string = string.replace("{{page1}}", `<ul id="xxx">${result}</ul>`);
+    response.write(string);
     response.end();
   } else if (path === "/2.js") {
     response.statusCode = 200;
@@ -52,6 +57,26 @@ var server = http.createServer(function (request, response) {
     response.statusCode = 200;
     response.setHeader("Content-Type", "text/html;charset=utf-8");
     response.write(fs.readFileSync("public/3.html"));
+    response.end();
+  } else if (path === "/4.xml") {
+    response.statusCode = 200;
+    response.setHeader("Content-Type", "text/xml;charset=utf-8");
+    response.write(fs.readFileSync("public/4.xml"));
+    response.end();
+  } else if (path === "/5.json") {
+    response.statusCode = 200;
+    response.setHeader("Content-Type", "text/json;charset=utf-8");
+    response.write(fs.readFileSync("public/5.json"));
+    response.end();
+  } else if (path === "/page2") {
+    response.statusCode = 200;
+    response.setHeader("Content-Type", "text/json;charset=utf-8");
+    response.write(fs.readFileSync("db/page2.json"));
+    response.end();
+  } else {
+    response.statusCode = 404;
+    response.setHeader("Content-Type", "text/html;charset=utf-8");
+    response.write(`您输入的路径不存在对应的内容`);
     response.end();
   }
 

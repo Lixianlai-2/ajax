@@ -88,3 +88,26 @@ getJSON.onclick = () => {
   };
   request.send();
 };
+
+let n = 1;
+getPage.onclick = () => {
+  console.log(`这里有成功进行吗？`);
+  const request = new XMLHttpRequest();
+  // 自动增加page页
+  request.open("get", `/page${n + 1}`);
+  request.onreadystatechange = () => {
+    if (request.readyState === 4 && request.status === 200) {
+      // 得到对应page的json，然后将其转化为数组
+      const array = JSON.parse(request.response);
+      // 遍历数组，创造li，将item.id的值传给li，然后再将li添加到ul中
+      array.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item.id;
+        xxx.appendChild(li);
+      });
+    }
+    n += 1;
+  };
+  // 别忘记发送请求
+  request.send();
+};
