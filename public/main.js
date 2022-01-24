@@ -1,5 +1,6 @@
-console.log(`js成功了`);
+console.log(`main.js加载成功了`);
 
+// ----------------------------------------------------
 // 点击得到html样式
 getHTML.onclick = () => {
   const request = new XMLHttpRequest();
@@ -20,6 +21,7 @@ getHTML.onclick = () => {
   request.send();
 };
 
+// ----------------------------------------------------
 // 点击得到js样
 getJS.onclick = () => {
   const request = new XMLHttpRequest();
@@ -41,6 +43,7 @@ getJS.onclick = () => {
   request.send();
 };
 
+// ----------------------------------------------------
 // 点击得到css样式
 getCSS.onclick = (e) => {
   console.log("getCSS成功了吗");
@@ -63,6 +66,8 @@ getCSS.onclick = (e) => {
   request.send();
 };
 
+// ----------------------------------------------------
+// 点击得到XML内容
 getXML.onclick = () => {
   const request = new XMLHttpRequest();
   request.open("get", "4.xml");
@@ -75,6 +80,8 @@ getXML.onclick = () => {
   request.send();
 };
 
+// ----------------------------------------------------
+// 点击得到JSON内容
 getJSON.onclick = () => {
   const request = new XMLHttpRequest();
   request.open("get", "5.json");
@@ -89,6 +96,8 @@ getJSON.onclick = () => {
   request.send();
 };
 
+// ----------------------------------------------------
+// 点击加载分页
 let n = 1;
 getPage.onclick = () => {
   console.log(`这里有成功进行吗？`);
