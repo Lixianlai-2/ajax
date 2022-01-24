@@ -20,7 +20,7 @@ getHTML.onclick = () => {
   request.send();
 };
 
-// 点击得到js样式
+// 点击得到js样
 getJS.onclick = () => {
   const request = new XMLHttpRequest();
   //注意这里打开的路径是server.js里path的路径
